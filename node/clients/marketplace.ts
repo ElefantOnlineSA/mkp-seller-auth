@@ -21,17 +21,17 @@ export default class Marketplace extends JanusClient {
     )
   }
 
-  public registerMapperBrand = async (marketplaceAccount: string, sellerId: string) => {
+  public registerMapperBrand = async (marketplaceAccount: string, sellerAccount: string) => {
     return this.http.postRaw(
-      `/api/suggestion/${marketplaceAccount}/suggestions/mapping/seller/${sellerId}/register/brand`,
+      `/api/suggestion/${marketplaceAccount}/suggestions/mapping/seller/${sellerAccount}/register/brand`,
       null,
       { metric: 'register-mapper-brand' }
     )
   }
 
-  public registerMapperCategory = async (marketplaceAccount: string, sellerId: string) => {
+  public registerMapperCategory = async (marketplaceAccount: string, sellerAccount: string) => {
     return this.http.postRaw(
-      `/api/suggestion/${marketplaceAccount}/suggestions/mapping/seller/${sellerId}/register/category`,
+      `/api/suggestion/${marketplaceAccount}/suggestions/mapping/seller/${sellerAccount}/register/category`,
       null,
       { metric: 'register-mapper-category' }
     )
