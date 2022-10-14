@@ -7,6 +7,7 @@ import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
 import { executeCall } from './middlewares/executeCall'
 import { healthcheck } from './middlewares/healthcheck'
+import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, mkpCategoryInfo, mkpBrandInfo, sendSKUSuggestion } from './middlewares/marketplace'
 
 const TIMEOUT_MS = 6000
 
@@ -60,6 +61,70 @@ export default new Service({
         checkConfiguration,
         validateVtexIdclientAutCookie,
         executeCall,
+      ],
+    }),
+    configRegistration: method({
+      PUT: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        configRegistration,
+      ],
+    }),
+    mapperBrands: method({
+      POST: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        mapperBrands,
+      ],
+    }),
+    mapperCategories: method({
+      POST: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        mapperCategories,
+      ],
+    }),
+    notificationInventory: method({
+      POST: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        notificationInventory,
+      ],
+    }),
+    notificationPrice: method({
+      POST: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        notificationPrice,
+      ],
+    }),
+    mkpCategoryInfo: method({
+      GET: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        mkpCategoryInfo,
+      ],
+    }),
+    mkpBrandInfo: method({
+      GET: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        mkpBrandInfo,
+      ],
+    }),
+    sendSKUSuggestion: method({
+      PUT: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        sendSKUSuggestion,
       ],
     }),
   },
