@@ -18,9 +18,7 @@ export default class Marketplace extends JanusClient {
       `/api/mkp-category-mapper/connector/configuration/${mapperId}`,
       data,
       { metric: 'register-mapper' }
-    ).catch(() => {
-      return undefined
-    })
+    )
   }
 
   public registerMapperBrand = async (marketplaceAccount: string, sellerId: string) => {
@@ -28,9 +26,7 @@ export default class Marketplace extends JanusClient {
       `/api/suggestion/${marketplaceAccount}/suggestions/mapping/seller/${sellerId}/register/brand`,
       null,
       { metric: 'register-mapper-brand' }
-    ).catch(() => {
-      return undefined
-    })
+    )
   }
 
   public registerMapperCategory = async (marketplaceAccount: string, sellerId: string) => {
@@ -38,9 +34,7 @@ export default class Marketplace extends JanusClient {
       `/api/suggestion/${marketplaceAccount}/suggestions/mapping/seller/${sellerId}/register/category`,
       null,
       { metric: 'register-mapper-category' }
-    ).catch(() => {
-      return undefined
-    })
+    )
   }
 
   public notificationInventory = async (sellerAccount: string, idSku: string) => {
@@ -48,9 +42,7 @@ export default class Marketplace extends JanusClient {
       `/api/notificator/${sellerAccount}/changenotification/${idSku}/inventory`,
       null,
       { metric: 'notification-inventory' }
-    ).catch(() => {
-      return undefined
-    })
+    )
   }
 
   public notificationPrice = async (sellerAccount: string, idSku: string) => {
@@ -58,9 +50,7 @@ export default class Marketplace extends JanusClient {
       `/api/notificator/${sellerAccount}/changenotification/${idSku}/price`,
       null,
       { metric: 'notification-price' }
-    ).catch(() => {
-      return undefined
-    })
+    )
   }
 
   // Endpoint supports V1+V2 https://{accountName}.{environment}.com.br/api/catalog_system/pvt/sku/stockkeepingunitbyid/{skuId}
@@ -69,9 +59,7 @@ export default class Marketplace extends JanusClient {
     return this.http.getRaw(
       `/api/catalog_system/pvt/sku/stockkeepingunitbyid/${skuId}`,
       { metric: 'get-product-by-sku-id' }
-    ).catch(() => {
-      return undefined
-    })
+    )
   }
 
   public getCategoryTree = async (categoryLevels: number = 10) => {
@@ -103,8 +91,6 @@ export default class Marketplace extends JanusClient {
       `/${marketplaceAccount}/suggestions/${sellerAccount}/${idSku}`,
       data,
       { metric: 'send-sku-suggestion' }
-    ).catch(() => {
-      return undefined
-    })
+    )
   }
 }

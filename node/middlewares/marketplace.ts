@@ -3,9 +3,6 @@ import { json } from 'co-body'
 export async function configRegistration(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
-      account,
-      workspace,
-      logger,
       route: { params },
     },
     clients: { marketplace },
@@ -24,9 +21,6 @@ export async function configRegistration(ctx: Context, next: () => Promise<any>)
 export async function mapperBrands(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
-      account,
-      workspace,
-      logger,
       route: { params },
     },
     clients: { marketplace },
@@ -45,9 +39,6 @@ export async function mapperBrands(ctx: Context, next: () => Promise<any>) {
 export async function mapperCategories(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
-      account,
-      workspace,
-      logger,
       route: { params },
     },
     clients: { marketplace },
@@ -66,9 +57,6 @@ export async function mapperCategories(ctx: Context, next: () => Promise<any>) {
 export async function notificationInventory(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
-      account,
-      workspace,
-      logger,
       route: { params },
     },
     clients: { marketplace },
@@ -87,9 +75,6 @@ export async function notificationInventory(ctx: Context, next: () => Promise<an
 export async function notificationPrice(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
-      account,
-      workspace,
-      logger,
       route: { params },
     },
     clients: { marketplace },
@@ -108,9 +93,6 @@ export async function notificationPrice(ctx: Context, next: () => Promise<any>) 
 export async function mkpCategoryInfo(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
-      account,
-      workspace,
-      logger,
       route: { params },
     },
     clients: { marketplace },
@@ -128,9 +110,6 @@ export async function mkpCategoryInfo(ctx: Context, next: () => Promise<any>) {
 export async function mkpBrandInfo(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
-      account,
-      workspace,
-      logger,
       route: { params },
     },
     clients: { marketplace },
@@ -148,9 +127,6 @@ export async function mkpBrandInfo(ctx: Context, next: () => Promise<any>) {
 export async function sendSKUSuggestion(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
-      account,
-      workspace,
-      logger,
       route: { params },
     },
     clients: { marketplace },
