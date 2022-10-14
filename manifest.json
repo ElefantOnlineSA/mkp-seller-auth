@@ -1,6 +1,6 @@
 {
   "name": "mkp-seller-auth",
-  "vendor": "vtex",
+  "vendor": "elefant",
   "version": "0.2.1",
   "title": "Marketplace Seller Comunication",
   "description": "Send call to the related account without a token for that account to execute tasks in his name",
