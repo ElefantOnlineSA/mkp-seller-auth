@@ -13,6 +13,38 @@
     "executeCall": {
       "path": "/mkp-seller-auth/v0/executeCall",
       "public": true
+    },
+    "configRegistration": {
+      "path": "/api/mkp-category-mapper/connector/configuration/:mapperId",
+      "public": true
+    },
+    "mapperBrands": {
+      "path": "/api/suggestion/:marketplaceAccount/suggestions/mapping/seller/:sellerAccount/register/brand",
+      "public": true
+    },
+    "mapperCategories": {
+      "path": "/api/suggestion/:marketplaceAccount/suggestions/mapping/seller/:sellerAccount/register/category",
+      "public": true
+    },
+    "notificationInventory": {
+      "path": "/api/notificator/:sellerAccount/changenotification/:idSku/inventory",
+      "public": true
+    },
+    "notificationPrice": {
+      "path": "/api/notificator/:sellerAccount/changenotification/:idSku/price",
+      "public": true
+    },
+    "mkpCategoryInfo": {
+      "path": "/api/catalog/pvt/category/:categoryId",
+      "public": true
+    },
+    "mkpBrandInfo": {
+      "path": "/api/catalog_system/pvt/brand/:brandId",
+      "public": true
+    },
+    "sendSKUSuggestion": {
+      "path": "/:marketplaceAccount/suggestions/:sellerAccount/:idSku",
+      "public": true
     }
   }
 }
