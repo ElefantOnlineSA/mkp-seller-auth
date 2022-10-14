@@ -38,6 +38,7 @@ export default class Marketplace extends JanusClient {
   }
 
   public notificationInventory = async (sellerAccount: string, idSku: string) => {
+    //https://developers.vtex.com/vtex-rest-api/reference/inventorynotification
     return this.http.postRaw(
       `/api/notificator/${sellerAccount}/changenotification/${idSku}/inventory`,
       null,
@@ -46,19 +47,11 @@ export default class Marketplace extends JanusClient {
   }
 
   public notificationPrice = async (sellerAccount: string, idSku: string) => {
+    //https://developers.vtex.com/vtex-rest-api/reference/pricenotification
     return this.http.postRaw(
       `/api/notificator/${sellerAccount}/changenotification/${idSku}/price`,
       null,
       { metric: 'notification-price' }
-    )
-  }
-
-  // Endpoint supports V1+V2 https://{accountName}.{environment}.com.br/api/catalog_system/pvt/sku/stockkeepingunitbyid/{skuId}
-  public getSkuById = async (skuId: string) => {
-    //https://developers.vtex.com/vtex-rest-api/reference/catalog-api-get-sku-context
-    return this.http.getRaw(
-      `/api/catalog_system/pvt/sku/stockkeepingunitbyid/${skuId}`,
-      { metric: 'get-product-by-sku-id' }
     )
   }
 
@@ -87,6 +80,7 @@ export default class Marketplace extends JanusClient {
   }
 
   public sendSKUSuggestion = async (marketplaceAccount: string, sellerAccount: string, idSku: string, data: any) => {
+    //https://developers.vtex.com/vtex-rest-api/reference/savesuggestion
     return this.http.putRaw(
       `/${marketplaceAccount}/suggestions/${sellerAccount}/${idSku}`,
       data,
