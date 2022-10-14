@@ -5,7 +5,6 @@ import { Clients } from './clients'
 import { validateRequest } from './middlewares/validateRequest'
 import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
-import { executeCall } from './middlewares/executeCall'
 import { healthcheck } from './middlewares/healthcheck'
 import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, mkpCategoryInfo, mkpBrandInfo, sendSKUSuggestion } from './middlewares/marketplace'
 
@@ -54,14 +53,6 @@ export default new Service({
   routes: {
     healthcheck: method({
       GET: [healthcheck],
-    }),
-    executeCall: method({
-      POST: [
-        validateRequest,
-        checkConfiguration,
-        validateVtexIdclientAutCookie,
-        executeCall,
-      ],
     }),
     configRegistration: method({
       PUT: [

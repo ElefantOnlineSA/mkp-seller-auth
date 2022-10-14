@@ -12,7 +12,6 @@ export default class VtexID extends JanusClient {
     })
   }
 
-  // https://developers.vtex.com/vtex-rest-api/reference/catalog-api-get-seller-list
   public async validate(token: string, account: string): Promise<any> {
     const url = `/api/vtexid/credential/validate?an=${account}`
 
