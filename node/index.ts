@@ -6,7 +6,7 @@ import { validateRequest } from './middlewares/validateRequest'
 import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
 import { healthcheck } from './middlewares/healthcheck'
-import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, mkpCategoryInfo, mkpBrandInfo, sendSKUSuggestion } from './middlewares/marketplace'
+import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, mkpCategoryInfo, mkpBrandInfo, sendSKUSuggestion, deleteSKUSuggestion } from './middlewares/marketplace'
 
 const TIMEOUT_MS = 6000
 
@@ -116,6 +116,12 @@ export default new Service({
         checkConfiguration,
         validateVtexIdclientAutCookie,
         sendSKUSuggestion,
+      ],
+      DELETE: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        deleteSKUSuggestion,
       ],
     }),
   },

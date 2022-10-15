@@ -87,4 +87,12 @@ export default class Marketplace extends JanusClient {
       { metric: 'send-sku-suggestion' }
     )
   }
+
+  public deleteSKUSuggestion = async (marketplaceAccount: string, sellerAccount: string, idSku: string) => {
+    //https://developers.vtex.com/vtex-rest-api/reference/savesuggestion
+    return this.http.delete(
+      `/${marketplaceAccount}/suggestions/${sellerAccount}/${idSku}`,
+      { metric: 'delete-sku-suggestion' }
+    )
+  }
 }

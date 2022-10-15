@@ -143,3 +143,22 @@ export async function sendSKUSuggestion(ctx: Context, next: () => Promise<any>) 
 
   await next()
 }
+
+export async function deleteSKUSuggestion(ctx: Context, next: () => Promise<any>) {
+  const {
+    vtex: {
+      route: { params },
+    },
+    clients: { marketplace },
+  } = ctx
+
+  const marketplaceAccount = params.marketplaceAccount as string
+  const sellerAccount = params.sellerAccount as string
+  const idSku = params.idSku as string
+  const response = await marketplace.deleteSKUSuggestion(marketplaceAccount, sellerAccount, idSku)
+
+  ctx.body = response.data
+  ctx.status = response.status
+
+  await next()
+}
