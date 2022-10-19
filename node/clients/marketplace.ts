@@ -37,19 +37,19 @@ export default class Marketplace extends JanusClient {
     )
   }
 
-  public notificationInventory = async (sellerAccount: string, skuId: string) => {
+  public notificationInventory = async (sellerAccount: string, sellerSkuId: string) => {
     //https://developers.vtex.com/vtex-rest-api/reference/inventorynotification
     return this.http.postRaw(
-      `/api/notificator/${sellerAccount}/changenotification/${skuId}/inventory`,
+      `/api/notificator/${sellerAccount}/changenotification/${sellerSkuId}/inventory`,
       null,
       { metric: 'notification-inventory' }
     )
   }
 
-  public notificationPrice = async (sellerAccount: string, skuId: string) => {
+  public notificationPrice = async (sellerAccount: string, sellerSkuId: string) => {
     //https://developers.vtex.com/vtex-rest-api/reference/pricenotification
     return this.http.postRaw(
-      `/api/notificator/${sellerAccount}/changenotification/${skuId}/price`,
+      `/api/notificator/${sellerAccount}/changenotification/${sellerSkuId}/price`,
       null,
       { metric: 'notification-price' }
     )
@@ -79,27 +79,27 @@ export default class Marketplace extends JanusClient {
     )
   }
 
-  public sendSKUSuggestion = async (marketplaceAccount: string, sellerAccount: string, skuId: string, data: any) => {
+  public sendSKUSuggestion = async (marketplaceAccount: string, sellerAccount: string, sellerSkuId: string, data: any) => {
     //https://developers.vtex.com/vtex-rest-api/reference/savesuggestion
     return this.http.putRaw(
-      `/${marketplaceAccount}/suggestions/${sellerAccount}/${skuId}`,
+      `/${marketplaceAccount}/suggestions/${sellerAccount}/${sellerSkuId}`,
       data,
       { metric: 'send-sku-suggestion' }
     )
   }
 
-  public deleteSKUSuggestion = async (marketplaceAccount: string, sellerAccount: string, skuId: string) => {
+  public deleteSKUSuggestion = async (marketplaceAccount: string, sellerAccount: string, sellerSkuId: string) => {
     //https://developers.vtex.com/vtex-rest-api/reference/savesuggestion
     return this.http.delete(
-      `/${marketplaceAccount}/suggestions/${sellerAccount}/${skuId}`,
+      `/${marketplaceAccount}/suggestions/${sellerAccount}/${sellerSkuId}`,
       { metric: 'delete-sku-suggestion' }
     )
   }
 
-  public getSellerSKUBinding = async (sellerId: string, sellerSkuId: string) => {
+  public getSellerSKUBinding = async (sellerAccount: string, sellerSkuId: string) => {
     //https://developers.vtex.com/vtex-rest-api/reference/getskuseller
     return this.http.getRaw(
-      `/api/sku-binding/pvt/skuseller/${sellerId}/${sellerSkuId}`,
+      `/api/sku-binding/pvt/skuseller/${sellerAccount}/${sellerSkuId}`,
       { metric: 'get-seller-sku-binding' }
     )
   }

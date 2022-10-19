@@ -6,7 +6,7 @@ import { validateRequest } from './middlewares/validateRequest'
 import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
 import { healthcheck } from './middlewares/healthcheck'
-import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, mkpCategoryInfo, mkpBrandInfo, sendSKUSuggestion, deleteSKUSuggestion } from './middlewares/marketplace'
+import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, mkpCategoryInfo, mkpBrandInfo, sendSKUSuggestion, deleteSKUSuggestion, getSellerSKUBinding, activateSellerSKUBinding, deactivateSellerSKUBinding, removeSellerSKUBinding } from './middlewares/marketplace'
 
 const TIMEOUT_MS = 6000
 
@@ -122,6 +122,38 @@ export default new Service({
         checkConfiguration,
         validateVtexIdclientAutCookie,
         deleteSKUSuggestion,
+      ],
+    }),
+    getSellerSKUBinding: method({
+      GET: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        getSellerSKUBinding,
+      ],
+    }),
+    activateSellerSKUBinding: method({
+      POST: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        activateSellerSKUBinding,
+      ],
+    }),
+    deactivateSellerSKUBinding: method({
+      POST: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        deactivateSellerSKUBinding,
+      ],
+    }),
+    removeSellerSKUBinding: method({
+      POST: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        removeSellerSKUBinding,
       ],
     }),
   },
