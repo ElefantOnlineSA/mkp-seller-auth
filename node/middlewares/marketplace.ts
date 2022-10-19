@@ -115,7 +115,7 @@ export async function notificationPrice(ctx: Context, next: () => Promise<any>) 
   await next()
 }
 
-export async function mkpCategoryInfo(ctx: Context, next: () => Promise<any>) {
+export async function getCategory(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
       route: { params },
@@ -137,7 +137,7 @@ export async function mkpCategoryInfo(ctx: Context, next: () => Promise<any>) {
   await next()
 }
 
-export async function mkpBrandInfo(ctx: Context, next: () => Promise<any>) {
+export async function getBrand(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {
       route: { params },
