@@ -104,6 +104,28 @@ export default class Marketplace extends JanusClient {
     )
   }
 
+  public getSellerSKUBindingsInfo = async (sellerAccount: string, skuId: string='', sellerSkuId: string='', isActive: string | null=null, size: number=1) => {
+    //https://developers.vtex.com/vtex-rest-api/reference/getpagedadmin
+    const params: {[key: string]: string} = {
+      sellerId: sellerAccount,
+      skuId: skuId,
+      sellerSkuId: sellerSkuId,
+      size: size.toString()
+    }
+
+    if (isActive != null) {
+      params['isActive'] = isActive
+    }
+
+    return this.http.getRaw(
+      `/api/sku-binding/pvt/skuseller/admin`,
+      {
+        params: params,
+        metric: 'get-seller-sku-binding'
+      }
+    )
+  }
+
   public activateSellerSKUBinding = async (sellerAccount: string, sellerSkuId: string) => {
     //https://developers.vtex.com/vtex-rest-api/reference/activateskubinding
     return this.http.postRaw(

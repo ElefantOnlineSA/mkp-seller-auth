@@ -6,7 +6,7 @@ import { validateRequest } from './middlewares/validateRequest'
 import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
 import { healthcheck } from './middlewares/healthcheck'
-import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, getCategory, getBrand, sendSKUSuggestion, deleteSKUSuggestion, getSellerSKUBinding, activateSellerSKUBinding, deactivateSellerSKUBinding, removeSellerSKUBinding } from './middlewares/marketplace'
+import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, getCategory, getBrand, sendSKUSuggestion, deleteSKUSuggestion, getSellerSKUBinding, getSellerSKUBindingsInfo, activateSellerSKUBinding, deactivateSellerSKUBinding, removeSellerSKUBinding } from './middlewares/marketplace'
 
 const TIMEOUT_MS = 6000
 
@@ -130,6 +130,14 @@ export default new Service({
         checkConfiguration,
         validateVtexIdclientAutCookie,
         getSellerSKUBinding,
+      ],
+    }),
+    getSellerSKUBindingsInfo: method({
+      GET: [
+        validateRequest,
+        checkConfiguration,
+        validateVtexIdclientAutCookie,
+        getSellerSKUBindingsInfo,
       ],
     }),
     activateSellerSKUBinding: method({

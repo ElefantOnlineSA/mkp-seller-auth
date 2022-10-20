@@ -234,6 +234,34 @@ export async function getSellerSKUBinding(ctx: Context, next: () => Promise<any>
   await next()
 }
 
+export async function getSellerSKUBindingsInfo(ctx: Context, next: () => Promise<any>) {
+  const {
+    query,
+    clients: { marketplace },
+  } = ctx
+
+  const sellerAccount = query.sellerId as string
+  const skuId = query.skuId as string
+  const sellerSkuId = query.sellerSkuId as string
+  const isActive = query.isActive as string
+  const size = query.size as number
+
+  try {
+    const response = await marketplace.getSellerSKUBindingsInfo(sellerAccount, skuId, sellerSkuId, isActive, size)
+    ctx.body = response.data
+    ctx.status = response.status
+  } catch (error) {
+    console.debug(error)
+    ctx.body = error.response.data
+    ctx.status = error.response.status
+  }
+
+  ctx.set('Cache-Control', 'no-store')
+  //console.debug(ctx.response)
+
+  await next()
+}
+
 export async function activateSellerSKUBinding(ctx: Context, next: () => Promise<any>) {
   const {
     vtex: {

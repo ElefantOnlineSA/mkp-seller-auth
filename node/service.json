@@ -46,6 +46,10 @@
       "path": "/mkp-seller-auth/v0/api/sku-binding/pvt/skuseller/:sellerAccount/:sellerSkuId",
       "public": true
     },
+    "getSellerSKUBindingsInfo": {
+      "path": "/mkp-seller-auth/v0/api/sku-binding/pvt/skuseller/admin",
+      "public": true
+    },
     "activateSellerSKUBinding": {
       "path": "/mkp-seller-auth/v0/api/sku-binding/pvt/skuseller/activate/:sellerAccount/:sellerSkuId",
       "public": true

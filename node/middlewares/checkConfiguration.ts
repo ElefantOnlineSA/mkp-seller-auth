@@ -1,5 +1,5 @@
 import atob from 'atob'
-import { NotFoundError } from '@vtex/api'
+import { ForbiddenError } from '@vtex/api'
 
 function parseJwt(token: string) {
   const base64Url = token.split('.')[1]
@@ -16,6 +16,18 @@ function parseJwt(token: string) {
   return JSON.parse(jsonPayload)
 }
 
+async function validateConfiguration(ctx: Context, requesterTokenDetails: any) {
+  const {
+    clients: { sellers },
+  } = ctx
+
+  if (requesterTokenDetails.account == ctx.vtex.account)
+    return true
+
+  const sellerResponse = await sellers.getSeller(requesterTokenDetails.account)
+  return sellerResponse.status === 200
+}
+
 export async function checkConfiguration(
   ctx: Context,
   next: () => Promise<any>
@@ -23,21 +35,14 @@ export async function checkConfiguration(
   const {
     vtex: { logger },
     state: { requestHeaders },
-    clients: { sellers },
   } = ctx
 
-  const requesterTokenDetails = parseJwt(
-    requestHeaders.vtexidclientautcookie
-  )
-
-  // console.warn(
-  //   'checkConfiguration requesterTokenDetails: ',
-  //   requesterTokenDetails
-  // )
-
+  const requesterTokenDetails = parseJwt(requestHeaders.vtexidclientautcookie)
   ctx.state.requesterTokenDetails = requesterTokenDetails
-  const sellerResponse = await sellers.getSeller(requesterTokenDetails.account)
-  const validConfig = sellerResponse.status === 200
+  //console.warn('checkConfiguration requesterTokenDetails:', requesterTokenDetails)
+
+  const validConfig = await validateConfiguration(ctx, requesterTokenDetails)
+  //console.debug('sellerResponse:', sellerResponse)
 
   if (!validConfig) {
     logger.error({
@@ -48,7 +53,7 @@ export async function checkConfiguration(
     })
 
     //If seller check affiliations (https://{account}.myvtex.com/admin/checkout/#/affiliates). If marketplace check sellers list (https://{account}.myvtex.com/admin/Site/Seller.aspx)
-    throw new NotFoundError(
+    throw new ForbiddenError(
       `Configuration for account ${requesterTokenDetails.account} not found.`
     )
   }

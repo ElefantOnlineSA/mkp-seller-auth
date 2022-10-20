@@ -39,7 +39,14 @@ export default class Sellers extends JanusClient {
 
   //https://developers.vtex.com/vtex-rest-api/reference/catalog-api-get-seller
   public async getSeller(sellerAccount: string): Promise<any> {
-    return this.http.getRaw(`/api/catalog_system/pvt/sellers/${sellerAccount}`,
-      { metric: 'seller' })
+    return this.http.getRaw(
+      `/api/catalog_system/pvt/sellers/${sellerAccount}`,
+      { metric: 'seller' }
+      ).catch((error) => {
+        return {
+          status: error.response.status,
+          data: error.response.data,
+        }
+      })
   }
 }
