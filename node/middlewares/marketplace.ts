@@ -228,6 +228,9 @@ export async function getSellerSKUBinding(ctx: Context, next: () => Promise<any>
     ctx.status = error.response.status
   }
 
+  ctx.set('Cache-Control', 'no-store')
+  //console.debug(ctx.response)
+
   await next()
 }
 

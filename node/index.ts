@@ -12,7 +12,7 @@ const TIMEOUT_MS = 6000
 
 // Create a LRU memory cache for the Status client.
 // The @vtex/api HttpClient respects Cache-Control headers and uses the provided cache.
-const memoryCache = new LRUCache<string, any>({ max: 5000 })
+const memoryCache = new LRUCache<string, any>({ max: 5000 }) //maxAge: 5000
 
 metrics.trackCache('status', memoryCache)
 
