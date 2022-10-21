@@ -1,5 +1,5 @@
 import atob from 'atob'
-import { ForbiddenError } from '@vtex/api'
+import { AuthenticationError, ForbiddenError } from '@vtex/api'
 
 function parseJwt(token: string) {
   const base64Url = token.split('.')[1]
@@ -37,9 +37,24 @@ export async function checkConfiguration(
     state: { requestHeaders },
   } = ctx
 
-  const requesterTokenDetails = parseJwt(requestHeaders.vtexidclientautcookie)
+  let requesterTokenDetails = null
+
+  try {
+    requesterTokenDetails = parseJwt(requestHeaders.vtexidclientautcookie)
+  } catch(error) {
+    logger.error({
+      message: 'Invalid authentication token',
+      data: {
+        error: error,
+        requestHeaders: requestHeaders,
+      },
+    })
+
+    throw new AuthenticationError(`Invalid authentication token`)
+  }
+
   ctx.state.requesterTokenDetails = requesterTokenDetails
-  //console.warn('checkConfiguration requesterTokenDetails:', requesterTokenDetails)
+  //console.warn('requesterTokenDetails:', requesterTokenDetails)
 
   const validConfig = await validateConfiguration(ctx, requesterTokenDetails)
   //console.debug('sellerResponse:', sellerResponse)

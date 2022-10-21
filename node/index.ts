@@ -5,6 +5,7 @@ import { Clients } from './clients'
 import { validateRequest } from './middlewares/validateRequest'
 import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
+import { executeCall } from './middlewares/executeCall'
 import { healthcheck } from './middlewares/healthcheck'
 import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, getCategory, getBrand, sendSKUSuggestion, deleteSKUSuggestion, getSellerSKUBinding, getSellerSKUBindingsInfo, activateSellerSKUBinding, deactivateSellerSKUBinding, removeSellerSKUBinding } from './middlewares/marketplace'
 
@@ -12,7 +13,7 @@ const TIMEOUT_MS = 6000
 
 // Create a LRU memory cache for the Status client.
 // The @vtex/api HttpClient respects Cache-Control headers and uses the provided cache.
-const memoryCache = new LRUCache<string, any>({ max: 5000 }) //maxAge: 5000
+const memoryCache = new LRUCache<string, any>({ max: 5000 })
 
 metrics.trackCache('status', memoryCache)
 
@@ -53,6 +54,14 @@ export default new Service({
   routes: {
     healthcheck: method({
       GET: [healthcheck],
+    }),
+    executeCall: method({
+      POST: [
+        //validateRequest,
+        //checkConfiguration,
+        //validateVtexIdclientAutCookie,
+        executeCall,
+      ],
     }),
     configRegistration: method({
       PUT: [
