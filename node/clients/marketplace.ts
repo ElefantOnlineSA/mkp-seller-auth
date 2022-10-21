@@ -104,9 +104,9 @@ export default class Marketplace extends JanusClient {
     )
   }
 
-  public getSellerSKUBindingsInfo = async (sellerAccount: string, skuId: string='', sellerSkuId: string='', isActive: string | null=null, size: number=1) => {
+  public getSellerSKUBindingsInfo = async (sellerAccount: string, skuId: string = '', sellerSkuId: string = '', isActive: string | null = null, size: number = 1) => {
     //https://developers.vtex.com/vtex-rest-api/reference/getpagedadmin
-    const params: {[key: string]: string} = {
+    const params: { [key: string]: string } = {
       sellerId: sellerAccount,
       skuId: skuId,
       sellerSkuId: sellerSkuId,
