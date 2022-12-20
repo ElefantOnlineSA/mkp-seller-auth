@@ -6,7 +6,7 @@ import { validateRequest } from './middlewares/validateRequest'
 import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
 import { noCache } from './middlewares/noCache'
-import { executeCall } from './middlewares/executeCall'
+import { notImplemented } from './middlewares/notImplemented'
 import { healthcheck } from './middlewares/healthcheck'
 import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, getCategory, getBrand, sendSKUSuggestion, deleteSKUSuggestion, getSellerSKUBinding, getSellerSKUBindingsInfo, activateSellerSKUBinding, deactivateSellerSKUBinding, removeSellerSKUBinding } from './middlewares/marketplace'
 
@@ -61,7 +61,7 @@ export default new Service({
     }),
     executeCall: method({
       POST: [
-        executeCall, //NOT IMPLEMENTED
+        notImplemented,
       ],
     }),
     configRegistration: method({
