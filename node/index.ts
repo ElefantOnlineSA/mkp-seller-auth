@@ -5,6 +5,7 @@ import { Clients } from './clients'
 import { validateRequest } from './middlewares/validateRequest'
 import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
+import { noCache } from './middlewares/noCache'
 import { executeCall } from './middlewares/executeCall'
 import { healthcheck } from './middlewares/healthcheck'
 import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, getCategory, getBrand, sendSKUSuggestion, deleteSKUSuggestion, getSellerSKUBinding, getSellerSKUBindingsInfo, activateSellerSKUBinding, deactivateSellerSKUBinding, removeSellerSKUBinding } from './middlewares/marketplace'
@@ -53,7 +54,10 @@ export default new Service({
   clients,
   routes: {
     healthcheck: method({
-      GET: [healthcheck],
+      GET: [
+        healthcheck,
+        noCache,
+      ],
     }),
     executeCall: method({
       POST: [
@@ -106,6 +110,7 @@ export default new Service({
         validateVtexIdclientAutCookie,
         checkConfiguration,
         getCategory,
+        noCache,
       ],
     }),
     getBrand: method({
@@ -114,6 +119,7 @@ export default new Service({
         validateVtexIdclientAutCookie,
         checkConfiguration,
         getBrand,
+        noCache,
       ],
     }),
     sendSKUSuggestion: method({
@@ -136,6 +142,7 @@ export default new Service({
         validateVtexIdclientAutCookie,
         checkConfiguration,
         getSellerSKUBinding,
+        noCache,
       ],
     }),
     getSellerSKUBindingsInfo: method({
@@ -144,6 +151,7 @@ export default new Service({
         validateVtexIdclientAutCookie,
         checkConfiguration,
         getSellerSKUBindingsInfo,
+        noCache,
       ],
     }),
     activateSellerSKUBinding: method({

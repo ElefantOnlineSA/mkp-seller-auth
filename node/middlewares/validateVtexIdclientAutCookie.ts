@@ -12,6 +12,7 @@ export async function validateVtexIdclientAutCookie(
 
   const tokenValidation = await vtexid.validate(requestHeaders.vtexidclientautcookie)
   ctx.state.requesterTokenDetails = tokenValidation
+  //console.debug('tokenValidation', tokenValidation)
 
   if (tokenValidation.authStatus !== 'Success') {
     logger.error({
