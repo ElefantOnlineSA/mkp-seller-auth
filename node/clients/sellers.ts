@@ -14,39 +14,19 @@ export default class Sellers extends JanusClient {
     })
   }
 
-  // https://developers.vtex.com/vtex-rest-api/reference/catalog-api-get-seller-list
-  public async getSellerList(
-    tradePolicy?: string,
-    sellerType?: string,
-    isBetterScope?: boolean
-  ): Promise<any> {
-    let url = `/api/catalog_system/pvt/seller/list?an=${this.context.account}`
-
-    if (tradePolicy) {
-      url += `&${tradePolicy}`
+  public async getSeller(sellerId: string, sc: string | null = null): Promise<any> {
+    //https://developers.vtex.com/vtex-rest-api/reference/getretrieveseller
+    const url = `/api/catalog_system/pvt/sellers/${sellerId}`
+    const params = {
+      sc: sc
     }
 
-    if (sellerType) {
-      url += `&${sellerType}`
-    }
-
-    if (isBetterScope) {
-      url += `&${isBetterScope}`
-    }
-
-    return this.http.getRaw(url, { metric: 'seller-list' })
-  }
-
-  //https://developers.vtex.com/vtex-rest-api/reference/catalog-api-get-seller
-  public async getSeller(sellerAccount: string): Promise<any> {
     return this.http.getRaw(
-      `/api/catalog_system/pvt/sellers/${sellerAccount}`,
-      { metric: 'seller' }
-      ).catch((error) => {
-        return {
-          status: error.response.status,
-          data: error.response.data,
-        }
-      })
+      url,
+      {
+        params: params,
+        metric: 'seller'
+      }
+    )
   }
 }

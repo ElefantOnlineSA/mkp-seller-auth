@@ -1,7 +1,7 @@
 {
   "name": "mkp-seller-auth",
   "vendor": "elefantqa",
-  "version": "0.3.0",
+  "version": "0.3.0-beta1",
   "title": "Marketplace Seller Comunication",
   "description": "Send call to the related account without a token for that account to execute tasks in his name",
   "mustUpdateAt": "2018-01-04",
@@ -19,19 +19,6 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "httpstat.us",
-        "path": "*"
-      }
-    },
-    {
-      "name": "colossus-fire-event"
-    },
-    {
-      "name": "colossus-write-logs"
-    },
-    {
-      "name": "outbound-access",
-      "attrs": {
         "host": "portal.vtexcommercestable.com.br",
         "path": "/api/*"
       }
@@ -42,6 +29,12 @@
         "host": "api.vtex.com",
         "path": "*"
       }
+    },
+    {
+      "name": "colossus-fire-event"
+    },
+    {
+      "name": "colossus-write-logs"
     },
     {
       "name": "view-seller"

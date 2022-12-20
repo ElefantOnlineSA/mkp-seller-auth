@@ -6,9 +6,6 @@ export async function executeCall(ctx: Context) {
     state: { requestBody },
   } = ctx
 
-  //console.info('executeCall.requestHeaders:', requestHeaders)
-  //console.info('executeCall.requestBody:', requestBody)
-
   logger.error({
     message: 'NOT IMPLEMENTED',
     data: {

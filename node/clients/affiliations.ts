@@ -18,6 +18,6 @@ export default class Affiliations extends JanusClient {
   public async getAffiliationsList(): Promise<any> {
     const url = `/api/fulfillment/pvt/affiliates`
 
-    return this.http.getRaw(url, { metric: 'seller-list' })
+    return this.http.getRaw(url, { metric: 'affiliates' })
   }
 }

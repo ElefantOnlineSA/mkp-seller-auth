@@ -57,119 +57,116 @@ export default new Service({
     }),
     executeCall: method({
       POST: [
-        //validateRequest,
-        //checkConfiguration,
-        //validateVtexIdclientAutCookie,
-        executeCall,
+        executeCall, //NOT IMPLEMENTED
       ],
     }),
     configRegistration: method({
       PUT: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         configRegistration,
       ],
     }),
     mapperBrands: method({
       POST: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         mapperBrands,
       ],
     }),
     mapperCategories: method({
       POST: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         mapperCategories,
       ],
     }),
     notificationInventory: method({
       POST: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         notificationInventory,
       ],
     }),
     notificationPrice: method({
       POST: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         notificationPrice,
       ],
     }),
     getCategory: method({
       GET: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         getCategory,
       ],
     }),
     getBrand: method({
       GET: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         getBrand,
       ],
     }),
     sendSKUSuggestion: method({
       PUT: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         sendSKUSuggestion,
       ],
       DELETE: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         deleteSKUSuggestion,
       ],
     }),
     getSellerSKUBinding: method({
       GET: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         getSellerSKUBinding,
       ],
     }),
     getSellerSKUBindingsInfo: method({
       GET: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         getSellerSKUBindingsInfo,
       ],
     }),
     activateSellerSKUBinding: method({
       POST: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         activateSellerSKUBinding,
       ],
     }),
     deactivateSellerSKUBinding: method({
       POST: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         deactivateSellerSKUBinding,
       ],
     }),
     removeSellerSKUBinding: method({
       POST: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
+        checkConfiguration,
         removeSellerSKUBinding,
       ],
     }),

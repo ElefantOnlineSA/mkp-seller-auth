@@ -6,25 +6,22 @@ export async function validateVtexIdclientAutCookie(
 ) {
   const {
     vtex: { logger },
-    state: { requestHeaders, requesterTokenDetails },
+    state: { requestHeaders },
     clients: { vtexid },
   } = ctx
 
-  const tokenValidation = await vtexid.validate(
-    requestHeaders.vtexidclientautcookie,
-    requesterTokenDetails.account
-  )
+  const tokenValidation = await vtexid.validate(requestHeaders.vtexidclientautcookie)
+  ctx.state.requesterTokenDetails = tokenValidation
 
   if (tokenValidation.authStatus !== 'Success') {
     logger.error({
       message: 'Invalid VtexIdClientAutCookie',
       data: {
-        requesterTokenDetails,
+        tokenValidation,
       },
     })
-    throw new AuthenticationError(
-      'Invalid VtexIdClientAutCookie Header'
-    )
+
+    throw new AuthenticationError('Invalid VtexIdClientAutCookie Header')
   }
 
   await next()

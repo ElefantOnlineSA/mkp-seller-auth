@@ -12,8 +12,8 @@ export default class VtexID extends JanusClient {
     })
   }
 
-  public async validate(token: string, account: string): Promise<any> {
-    const url = `/api/vtexid/credential/validate?an=${account}`
+  public async validate(token: string): Promise<any> {
+    const url = `/api/vtexid/credential/validate`
 
     return this.http.post(url, { token }, { metric: 'vtexid-validate' })
   }

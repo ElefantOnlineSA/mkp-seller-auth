@@ -1,20 +1,4 @@
-import atob from 'atob'
-import { AuthenticationError, ForbiddenError } from '@vtex/api'
-
-function parseJwt(token: string) {
-  const base64Url = token.split('.')[1]
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-  const jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map((c: string) => {
-        return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`
-      })
-      .join('')
-  )
-
-  return JSON.parse(jsonPayload)
-}
+import { ForbiddenError } from '@vtex/api'
 
 async function validateConfiguration(ctx: Context, requesterTokenDetails: any) {
   const {
@@ -24,7 +8,13 @@ async function validateConfiguration(ctx: Context, requesterTokenDetails: any) {
   if (requesterTokenDetails.account == ctx.vtex.account)
     return true
 
-  const sellerResponse = await sellers.getSeller(requesterTokenDetails.account)
+  const sellerResponse = await sellers.getSeller(requesterTokenDetails.account).catch((error) => {
+    return {
+      status: error.response.status,
+      data: error.response.data,
+    }
+  })
+
   return sellerResponse.status === 200
 }
 
@@ -34,31 +24,10 @@ export async function checkConfiguration(
 ) {
   const {
     vtex: { logger },
-    state: { requestHeaders },
+    state: { requesterTokenDetails },
   } = ctx
 
-  let requesterTokenDetails = null
-
-  try {
-    requesterTokenDetails = parseJwt(requestHeaders.vtexidclientautcookie)
-  } catch(error) {
-    logger.error({
-      message: 'Invalid authentication token',
-      data: {
-        error: error,
-        requestHeaders: requestHeaders,
-      },
-    })
-
-    throw new AuthenticationError(`Invalid authentication token`)
-  }
-
-  ctx.state.requesterTokenDetails = requesterTokenDetails
-  //console.warn('requesterTokenDetails:', requesterTokenDetails)
-
   const validConfig = await validateConfiguration(ctx, requesterTokenDetails)
-  //console.debug('sellerResponse:', sellerResponse)
-
   if (!validConfig) {
     logger.error({
       message: 'Invalid configuration',
@@ -68,9 +37,7 @@ export async function checkConfiguration(
     })
 
     //If seller check affiliations (https://{account}.myvtex.com/admin/checkout/#/affiliates). If marketplace check sellers list (https://{account}.myvtex.com/admin/Site/Seller.aspx)
-    throw new ForbiddenError(
-      `Configuration for account ${requesterTokenDetails.account} not found.`
-    )
+    throw new ForbiddenError(`Configuration for account ${requesterTokenDetails.account} not found.`)
   }
 
   await next()
