@@ -1,4 +1,5 @@
-import { JanusClient, InstanceOptions, IOContext } from '@vtex/api'
+import type { InstanceOptions, IOContext } from '@vtex/api'
+import { JanusClient } from '@vtex/api'
 
 export default class Marketplace extends JanusClient {
   constructor(context: IOContext, options?: InstanceOptions) {
