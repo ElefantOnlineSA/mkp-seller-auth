@@ -122,7 +122,7 @@ export default class Marketplace extends JanusClient {
       `/api/sku-binding/pvt/skuseller/admin`,
       {
         params: params,
-        metric: 'get-seller-sku-binding'
+        metric: 'get-seller-sku-bindings-info'
       }
     )
   }
