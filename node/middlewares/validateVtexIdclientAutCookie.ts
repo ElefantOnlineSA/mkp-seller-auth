@@ -6,36 +6,24 @@ export async function validateVtexIdclientAutCookie(
 ) {
   const {
     vtex: { logger },
-    state: { requestHeaders, requesterTokenDetails },
+    state: { requestHeaders },
     clients: { vtexid },
   } = ctx
 
-  const tokenValidation = await vtexid.validate(
-    requestHeaders.requestervtexidclientautcookie,
-    requesterTokenDetails.account
-  )
+  const tokenValidation = await vtexid.validate(requestHeaders.vtexidclientautcookie)
+  ctx.state.requesterTokenDetails = tokenValidation
+  //console.debug('tokenValidation', tokenValidation)
 
   if (tokenValidation.authStatus !== 'Success') {
     logger.error({
-      message: 'Invalid RequesterVtexIdclientAutCookie',
+      message: 'Invalid VtexIdClientAutCookie',
       data: {
-        requesterTokenDetails,
+        tokenValidation,
       },
     })
-    throw new AuthenticationError(
-      'Invalid RequesterVtexIdclientAutCookie Header'
-    )
+
+    throw new AuthenticationError('Invalid VtexIdClientAutCookie Header')
   }
-
-  // TODO
-  // also review policies to align with this url to have a double validation
-  // check params url to see if it's an url it can hit
-
-  //   const { url } = requestBody
-
-  //   if (url !== 'valid url to hit' && url !== 'other valid url to hit') {
-  //     throw new AuthenticationError('Invalid url')
-  //   }
 
   await next()
 }

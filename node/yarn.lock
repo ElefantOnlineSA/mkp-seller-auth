@@ -1241,10 +1241,10 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@vtex/api@6.45.12":
-  version "6.45.12"
-  resolved "https://registry.yarnpkg.com/@vtex/api/-/api-6.45.12.tgz#b13c04398b12f576263ea823369f09c970d57479"
-  integrity sha512-SVLKo+Q/TxQy+1UKzH8GswTI3F2OCRCLfgaNQOrVAVdbM6Ci4wzTeX8j/S4Q1aEEnqBFlH/wVpHf8I6NBa+g9A==
+"@vtex/api@6.45.13":
+  version "6.45.13"
+  resolved "https://registry.yarnpkg.com/@vtex/api/-/api-6.45.13.tgz#836c392fa9567009e34559f08698f6efc95e88cc"
+  integrity sha512-P22/ObNdsgLvagetcDrovFfSXHe8Jb4yHud4U0rXHfIYEIMSnEdQ/QHujF3CEa5AiZnvbR/5W5ynGtWHYHOv9A==
   dependencies:
     "@types/koa" "^2.11.0"
     "@types/koa-compose" "^3.2.3"
@@ -1656,7 +1656,7 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-atob@^2.1.1, atob@^2.1.2:
+atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==

@@ -5,8 +5,10 @@ import { Clients } from './clients'
 import { validateRequest } from './middlewares/validateRequest'
 import { checkConfiguration } from './middlewares/checkConfiguration'
 import { validateVtexIdclientAutCookie } from './middlewares/validateVtexIdclientAutCookie'
-import { executeCall } from './middlewares/executeCall'
+import { noCache } from './middlewares/noCache'
+import { notImplemented } from './middlewares/notImplemented'
 import { healthcheck } from './middlewares/healthcheck'
+import { configRegistration, mapperBrands, mapperCategories, notificationInventory, notificationPrice, getCategory, getBrand, sendSKUSuggestion, deleteSKUSuggestion, getSellerSKUBinding, getSellerSKUBindingsInfo, activateSellerSKUBinding, deactivateSellerSKUBinding, removeSellerSKUBinding } from './middlewares/marketplace'
 
 const TIMEOUT_MS = 6000
 
@@ -52,14 +54,128 @@ export default new Service({
   clients,
   routes: {
     healthcheck: method({
-      GET: [healthcheck],
+      GET: [
+        healthcheck,
+        noCache,
+      ],
     }),
     executeCall: method({
       POST: [
+        notImplemented,
+      ],
+    }),
+    configRegistration: method({
+      PUT: [
         validateRequest,
-        checkConfiguration,
         validateVtexIdclientAutCookie,
-        executeCall,
+        checkConfiguration,
+        configRegistration,
+      ],
+    }),
+    mapperBrands: method({
+      POST: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        mapperBrands,
+      ],
+    }),
+    mapperCategories: method({
+      POST: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        mapperCategories,
+      ],
+    }),
+    notificationInventory: method({
+      POST: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        notificationInventory,
+      ],
+    }),
+    notificationPrice: method({
+      POST: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        notificationPrice,
+      ],
+    }),
+    getCategory: method({
+      GET: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        getCategory,
+        noCache,
+      ],
+    }),
+    getBrand: method({
+      GET: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        getBrand,
+        noCache,
+      ],
+    }),
+    sendSKUSuggestion: method({
+      PUT: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        sendSKUSuggestion,
+      ],
+      DELETE: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        deleteSKUSuggestion,
+      ],
+    }),
+    getSellerSKUBinding: method({
+      GET: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        getSellerSKUBinding,
+        noCache,
+      ],
+    }),
+    getSellerSKUBindingsInfo: method({
+      GET: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        getSellerSKUBindingsInfo,
+        noCache,
+      ],
+    }),
+    activateSellerSKUBinding: method({
+      POST: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        activateSellerSKUBinding,
+      ],
+    }),
+    deactivateSellerSKUBinding: method({
+      POST: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        deactivateSellerSKUBinding,
+      ],
+    }),
+    removeSellerSKUBinding: method({
+      POST: [
+        validateRequest,
+        validateVtexIdclientAutCookie,
+        checkConfiguration,
+        removeSellerSKUBinding,
       ],
     }),
   },

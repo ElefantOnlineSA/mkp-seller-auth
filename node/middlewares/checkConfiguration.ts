@@ -1,31 +1,39 @@
-import atob from 'atob'
-import { NotFoundError } from '@vtex/api'
+import { ForbiddenError } from '@vtex/api'
 
-function parseJwt(token: string) {
-  const base64Url = token.split('.')[1]
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-  const jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map((c: string) => {
-        return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`
-      })
-      .join('')
-  )
+async function validateConfiguration(ctx: Context) {
+  const {
+    state: { requesterTokenDetails },
+    clients: { sellers },
+  } = ctx
 
-  return JSON.parse(jsonPayload)
-}
+  if (requesterTokenDetails.account == ctx.vtex.account)
+    return true
 
-// TODO optimize this to avoid always iterating the whole array
-function listContainsAccountId(list: [], accountId: string) {
-  // console.info('checkConfiguration accountId: ', accountId)
-  const mapped = list.map((elem: any) => {
-    console.info('checkConfiguration SellerId: ', elem.SellerId)
-
-    return accountId === elem.SellerId
+  const sellerResponse = await sellers.getSeller(requesterTokenDetails.account).catch((error) => {
+    return {
+      status: error.response.status,
+      data: error.response.data,
+    }
   })
 
-  return mapped.includes(true)
+  return sellerResponse.status === 200
+}
+
+function validateRequestParams(ctx: Context) {
+  const {
+    query,
+    state: { requesterTokenDetails },
+    vtex: {
+      account,
+      route: { params },
+    },
+  } = ctx
+
+  const queryAnValid = typeof query.an === 'undefined' || query.an === requesterTokenDetails.account
+  const sellerAccountValid = typeof params.sellerAccount === 'undefined' || params.sellerAccount === requesterTokenDetails.account
+  const marketplaceAccountValid = typeof params.marketplaceAccount === 'undefined' || params.marketplaceAccount === account
+
+  return queryAnValid && sellerAccountValid && marketplaceAccountValid
 }
 
 export async function checkConfiguration(
@@ -33,55 +41,35 @@ export async function checkConfiguration(
   next: () => Promise<any>
 ) {
   const {
-    vtex: { logger },
-    state: { requestBody, requestHeaders },
-    clients: { sellers, affiliations },
+    vtex: { logger, route: { params } },
+    state: { requesterTokenDetails },
   } = ctx
 
-  const requesterTokenDetails = parseJwt(
-    requestHeaders.requestervtexidclientautcookie
-  )
-
-  // console.warn(
-  //   'checkConfiguration requesterTokenDetails: ',
-  //   requesterTokenDetails
-  // )
-
-  ctx.state.requesterTokenDetails = requesterTokenDetails
-
-  let validConfig = false
-
-  if (requestBody.accountType === 'seller') {
-    // check account seller list
-    const sellersListResponse = await sellers.getSellerList()
-
-    validConfig = listContainsAccountId(
-      sellersListResponse.data,
-      requesterTokenDetails.account
-    )
-  } else if (requestBody.accountType === 'marketplace') {
-    // check account affiliations
-    const affiliationsListResponse = await affiliations.getAffiliationsList()
-    const affiliatedMarketplaces = affiliationsListResponse.data.map( (affiliation: any) => {
-      const splittedUri = affiliation.searchURIEndpoint.split('/')
-      return { SellerId: splittedUri[splittedUri.length-2] }
-    })
-    validConfig = listContainsAccountId(
-      affiliatedMarketplaces,
-      requesterTokenDetails.account
-    )
-  }
-
+  const validConfig = await validateConfiguration(ctx)
   if (!validConfig) {
     logger.error({
       message: 'Invalid configuration',
       data: {
         requesterTokenDetails,
+        params,
       },
     })
-    throw new NotFoundError(
-      'Configuration for account not found. If seller check affiliations (https://{account}.myvtex.com/admin/checkout/#/affiliates). If marketplace check sellers list (https://{account}.myvtex.com/admin/Site/Seller.aspx)'
-    )
+
+    //If seller check affiliations (https://{account}.myvtex.com/admin/checkout/#/affiliates). If marketplace check sellers list (https://{account}.myvtex.com/admin/Site/Seller.aspx)
+    throw new ForbiddenError(`Configuration for account ${requesterTokenDetails.account} not found.`)
+  }
+
+  const validRequestParams = validateRequestParams(ctx)
+  if (!validRequestParams) {
+    logger.error({
+      message: 'Forbidden request params',
+      data: {
+        requesterTokenDetails,
+        params,
+      },
+    })
+
+    throw new ForbiddenError(`Forbidden request params for account ${requesterTokenDetails.account}.`)
   }
 
   await next()
